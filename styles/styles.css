@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+}
+
+#board {
+  width: 100%
+}
+
+div {
+  border: 1px solid red;
+  text-align: center;
+}
+#player1 {
+  margin-top: 25px;
+  width: 45%;
+  height: 600px;
+  float: left;
+}
+
+#player2 {
+  margin-top: 25px;
+  width: 45%;
+  height: 600px;
+  float: right;
+}
+
+#footer {
+  clear: both;
+  float: right;
+}
