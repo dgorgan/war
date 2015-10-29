@@ -5,9 +5,11 @@ var DECK = [];
 var player1 = document.getElementById('player1');
 var player2 = document.getElementById('player2');
 var start = document.getElementById('start');
-var reset = document.getElementById('reset');
-var auto = document.getElementById('auto');
+var battle = document.getElementById('battle');
+// var auto = document.getElementById('auto');
 var player1draw = document.getElementById('player1draw');
+
+
 
 
 var buildDeck = function(suits, rank) {
@@ -20,6 +22,7 @@ var buildDeck = function(suits, rank) {
       })
     }
   }
+  shuffle(DECK);
 }
 
 function shuffle(array) {
@@ -42,67 +45,106 @@ function shuffle(array) {
 
 var player1hand = [];
 var player2hand = [];
+//
+// var currentHand1 = []
+// var currentHand2 = []
+//
+// currentHand1.push(player1StartingDeck.value)
+// currentHand1.push(player1hand.value)
+
+var player1StartingDeck;
+var player2StartingDeck;
+var player1StartingHand;
+var player2StartingHand;
+var player1StartingHandValue;
+var player2StartingHandValue;
+var x;
+var y;
 
 function splitDeck(deck) {
-  for (var i = 0, j = 0; i < DECK.length, j < DECK.length; i++, j++) {
-    player1hand.push(DECK[i]);
-    shuffle(DECK);
-    player2hand.push(DECK[j]);
-    shuffle(DECK);
-  }
+  player1hand.push(deck.slice(0,26));
+  player1StartingDeck = player1hand.pop();
+
+  // var firstcard = player1StartingDeck[].value
+  // player1StartingHand = player1StartingDeck.pop();
+  // player1StartingHandValue = player1StartingHand.value;
+  player2hand.push(deck.slice(26));
+  player2StartingDeck = player2hand.pop();
+
+  // player2StartingHand = play.pop();
+  // player2StartingHandValue = player2StartingHand.value;
+
+  ;
+
 }
 
-function compareHand(player1hand, player2hand) {
-  var player1StartingHand = player1hand.pop();
-  var player2StartingHand = player2hand.pop();
-  var html = "";
 
 
-    if (player1StartingHand.value > player2StartingHand.value) {
+
+
+
+
+
+function compareHand() {
+
+    x =  player1.pop()
+    y player1.pop()
+    s player1.pop()
+
+    var x = player1StartingDeck[0];
+    var y = player2StartingDeck[0];
+
+
+    if (x.value > y.value) {
         player1.classList.toggle('enable');
-        player1.innerHTML = 'Player 1 <span>won</span>!' + '\n Used ' + player1StartingHand.rank + ' of ' + player1StartingHand.suits;
-        player2.innerHTML = 'Player 2 played ' + player2StartingHand.rank + ' of ' + player2StartingHand.suits;
-        console.log(player1hand.value);
+        player1.innerHTML = 'Player 1 <span id="green">won</span>!' + '<br> Used ' + x.rank + ' of ' + x.suits + '<br> Player 1 has ' + player1StartingDeck.length + ' cards!';
+        player2.innerHTML = 'Player 2 <span>lost</span>! <br> Played ' + y.rank + ' of ' + y.suits + '<br> Player 2 has ' + player2StartingDeck.length + ' cards!';
+        console.log(x);
 
-    } else if (player1StartingHand.value < player2StartingHand.value) {
-        player2.classList.toggle('enable');
-        player2.innerHTML = 'Player 2 <span>won</span>!' + '\n Used ' + player2StartingHand.rank + ' of ' + player2StartingHand.suits;
-        player1.innerHTML = 'Player 1 played ' + player1StartingHand.rank +  ' of ' + player1StartingHand.suits;
-        console.log(player2hand.value);
+        var firstPlayer1 = player1StartingDeck.shift();
+        var firstPlayer2 = player2StartingDeck.shift();
+
+        player1StartingDeck.push(firstPlayer1);
+        player1StartingDeck.push(firstPlayer2);
+
+
+
 
     } else {
-        player1.innerHTML = 'Draw!';
-        player2.innerHTML = 'Draw!';
-    }
 
-  // for (var i = 0; i < player1hand.length && player2hand.length; i++) {
-  //   if (player1hand[i].value > player2hand[i].value) {
-  //     console.log('Player 1 value: ' + player1hand[i].value);
-  //     console.log('Player 1 won the round!');
-  //   } else if (player1hand[i].value < player2hand[i].value) {
-  //
-  //     console.log('Player 2 value: ' + player2hand[i].value);
-  //     console.log('Player 2 won the round!');
-  //     player1hand.splice(0,1);
-  //     player2hand.splice(0,1);
-  //   } else {
-  //     console.log('Draw!');
-  //     console.log('Player 1 value: ' + player1hand[i].value + '\n' + 'Player 2 value :' + player2hand[i].value);
-  //     player1hand.splice(0,1);
-  //     player2hand.splice(0,1);
-  //   }
-  // }
+        player2.classList.toggle('enable');
+        player2.innerHTML = 'Player 2 <span id="green">won</span>!' + '<br> Used ' + y.rank + ' of ' + x.suits + '<br> Player 2 has ' + player2StartingDeck.length + ' cards!';
+        player1.innerHTML = 'Player 1 <span>lost</span>! <br> Played ' + x.rank +  ' of ' + x.suits + '<br> Player 1 has ' + player1StartingDeck.length + ' cards!';
+        console.log(y);
+
+
+        var firstPlayer1 = player1StartingDeck.shift();
+        var firstPlayer2 = player2StartingDeck.shift();
+
+        player2StartingDeck.push(firstPlayer1);
+        player2StartingDeck.push(firstPlayer2);
+
+}
+  //  else {
+   //
+  //       var firstPlayer1 = player1StartingDeck.shift();
+  //       var firstPlayer2 = player2StartingDeck.shift();
+   //
+  //       player1StartingDeck.push(firstPlayer1);
+  //       player1StartingDeck.push(firstPlayer2);
+  //   //
+  //   // }
+
 }
 
 
 function startGame() {
   buildDeck(SUITS, RANK);
-  splitDeck(player1hand, player2hand);
-  compareHand(player1hand,player2hand);
+  splitDeck(DECK);
 }
 
-function resetGame() {
-
+function battleGame() {
+  compareHand();
 }
 
 function autoGame () {
@@ -110,9 +152,11 @@ function autoGame () {
 }
 
 function populatePlayer1HTML () {
+
 }
 
 
 start.addEventListener('click', startGame);
+battle.addEventListener('click', battleGame);
 // player1draw.addEventListener('click', compareHand )
 // player2.addEventListener('click', )
