@@ -74,7 +74,7 @@ function splitDeck(deck) {
   // player2StartingHand = play.pop();
   // player2StartingHandValue = player2StartingHand.value;
 
-  ;
+
 
 }
 
@@ -87,9 +87,7 @@ function splitDeck(deck) {
 
 function compareHand() {
 
-    x =  player1.pop()
-    y player1.pop()
-    s player1.pop()
+  
 
     var x = player1StartingDeck[0];
     var y = player2StartingDeck[0];
